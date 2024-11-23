@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../services/provider.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-provider',
@@ -8,19 +9,26 @@ import { ProviderService } from '../services/provider.service';
 })
 export class ListProviderComponent implements OnInit{
 
-  providers:any;
-
-  public constructor(private providerService:ProviderService){
-    console.log("Constructeur")
-    }
-
-    ngOnInit(): void {
-      console.log("ngOnInit")
-      this.providerService.listProviders().subscribe(
-        data=>{
-          console.log(data);
-          this.providers = data;
-        }
-      );
-    }
+  providers: any;
+  constructor(private service: ProviderService, private router: Router) { }
+  ngOnInit() {
+    this.refreshListProviders();
+  }
+  deleteProvider(myObj:any) {
+    //console.log(this.provider);
+    this.service.deleteProvider(myObj).subscribe(response => {
+      console.log(response);
+      this.refreshListProviders();
+    })
+  }
+  refreshListProviders() {
+    this.service.listProviders().subscribe(
+      response => {
+        this.providers = response;
+      }
+    );
+  }
+  updateProvider(myObj:any) {
+    this.router.navigate(['updateProvider' + '/' + myObj['id']]); // redirection vers le composant UpdateProvider
+  }
 }
