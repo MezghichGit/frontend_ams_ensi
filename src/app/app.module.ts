@@ -8,6 +8,7 @@ import { AddProviderComponent } from './add-provider/add-provider.component';
 import { ListProviderComponent } from './list-provider/list-provider.component';
 import { UpdateProviderComponent } from './update-provider/update-provider.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
